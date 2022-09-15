@@ -90,16 +90,17 @@ class FreeAPSXDataFieldView extends WatchUi.DataField {
         var valueTime = View.findDrawableById("valueTime") as Text;
         var valueDelta = View.findDrawableById("valueDelta") as Text;
         if (getBackgroundColor() == Graphics.COLOR_BLACK) {
-            label.setColor(Graphics.COLOR_WHITE)
+            label.setColor(Graphics.COLOR_WHITE);
             value.setColor(Graphics.COLOR_WHITE);
             valueTime.setColor(Graphics.COLOR_WHITE);
             valueDelta.setColor(Graphics.COLOR_WHITE);
         } else {
-            label.setColor(Graphics.COLOR_BLACK)
+            label.setColor(Graphics.COLOR_BLACK);
             value.setColor(Graphics.COLOR_BLACK);
             valueTime.setColor(Graphics.COLOR_BLACK);
             valueDelta.setColor(Graphics.COLOR_BLACK);
         }
+        label.setText(Rez.Strings.label);
         value.setText(bgString);
         valueTime.setText(loopString);
         valueDelta.setText(deltaString);
