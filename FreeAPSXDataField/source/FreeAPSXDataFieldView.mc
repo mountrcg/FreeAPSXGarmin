@@ -36,13 +36,13 @@ class FreeAPSXDataFieldView extends WatchUi.DataField {
         } else {
             View.setLayout(Rez.Layouts.MainLayout(dc));
             var labelView = View.findDrawableById("label");
-            labelView.locX = labelView.locX - 40;
-            labelView.locY = labelView.locY - 10;
+            labelView.locX = labelView.locX - 60;
+            labelView.locY = labelView.locY - 15;
             var valueView = View.findDrawableById("value");
-            valueView.locY = valueView.locY - 10;
+            valueView.locY = valueView.locY - 15;
             var valueViewTime = View.findDrawableById("valueTime");
-            valueViewTime.locX = valueViewTime.locX  + 40 ;
-             valueViewTime.locY = valueViewTime.locY - 10;
+            valueViewTime.locX = valueViewTime.locX  + 60 ;
+             valueViewTime.locY = valueViewTime.locY - 15;
             var valueViewDelta = View.findDrawableById("valueDelta");
             valueViewDelta.locY = valueViewDelta.locY + 20;
 
