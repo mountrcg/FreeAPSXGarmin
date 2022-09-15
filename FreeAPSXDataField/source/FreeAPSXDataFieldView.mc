@@ -85,6 +85,7 @@ class FreeAPSXDataFieldView extends WatchUi.DataField {
         (View.findDrawableById("Background") as Text).setColor(loopColor);    //getBackgroundColor());
 
         // Set the foreground color and value
+        var label = View.findDrawableById("label") as Text;
         var value = View.findDrawableById("value") as Text;
         var valueTime = View.findDrawableById("valueTime") as Text;
         var valueDelta = View.findDrawableById("valueDelta") as Text;
