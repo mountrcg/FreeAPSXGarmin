@@ -5,10 +5,10 @@ import Toybox.WatchUi;
 
 class FreeAPSXDataFieldView extends WatchUi.DataField {
 
-   
+
     function initialize() {
         DataField.initialize();
-       
+
     }
 
     // Set your layout here. Anytime the size of obscurity of
@@ -43,8 +43,8 @@ class FreeAPSXDataFieldView extends WatchUi.DataField {
             var valueViewTime = View.findDrawableById("valueTime");
             valueViewTime.locX = valueViewTime.locX  + 40 ;
              valueViewTime.locY = valueViewTime.locY - 10;
-            var valueViewDelta = View.findDrawableById("valueDelta");  
-            valueViewDelta.locY = valueViewDelta.locY + 20;   
+            var valueViewDelta = View.findDrawableById("valueDelta");
+            valueViewDelta.locY = valueViewDelta.locY + 20;
 
         }
 
@@ -57,7 +57,7 @@ class FreeAPSXDataFieldView extends WatchUi.DataField {
     // guarantee that compute() will be called before onUpdate().
     function compute(info as Activity.Info) as Void {
         // See Activity.Info in the documentation for available information.
-        
+
     }
 
     // Display the value you computed here. This will be called
@@ -78,8 +78,8 @@ class FreeAPSXDataFieldView extends WatchUi.DataField {
             bgString = (bg == null) ? "--" : bg;
             var min = getMinutes();
             loopColor = getLoopColor(min);
-            loopString = (min < 0 ? "(--)" : "(" + min.format("%d")) + "mn)";
-            deltaString = getDeltaText(); 
+            loopString = (min < 0 ? "(--)" : " " + min.format("%d")) + "m";
+            deltaString = getDeltaText();
         }
         // Set the background color
         (View.findDrawableById("Background") as Text).setColor(loopColor);    //getBackgroundColor());
@@ -89,10 +89,12 @@ class FreeAPSXDataFieldView extends WatchUi.DataField {
         var valueTime = View.findDrawableById("valueTime") as Text;
         var valueDelta = View.findDrawableById("valueDelta") as Text;
         if (getBackgroundColor() == Graphics.COLOR_BLACK) {
+            label.setColor(Graphics.COLOR_WHITE)
             value.setColor(Graphics.COLOR_WHITE);
             valueTime.setColor(Graphics.COLOR_WHITE);
             valueDelta.setColor(Graphics.COLOR_WHITE);
         } else {
+            label.setColor(Graphics.COLOR_BLACK)
             value.setColor(Graphics.COLOR_BLACK);
             valueTime.setColor(Graphics.COLOR_BLACK);
             valueDelta.setColor(Graphics.COLOR_BLACK);
@@ -117,7 +119,7 @@ class FreeAPSXDataFieldView extends WatchUi.DataField {
         }
 
         var now = Time.now().value() as Number;
-        
+
         var min = (now - lastLoopDate) / 60;
 
         return min;
@@ -133,7 +135,7 @@ class FreeAPSXDataFieldView extends WatchUi.DataField {
         } else {
             return Graphics.COLOR_RED as Number;
         }
-    } 
+    }
 
     function getDeltaText() as String {
         var status = Application.Storage.getValue("status") as Dictionary;
