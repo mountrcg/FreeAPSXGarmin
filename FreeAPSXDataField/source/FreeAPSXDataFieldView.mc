@@ -3,6 +3,7 @@ import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.WatchUi;
 
+
 class FreeAPSXDataFieldView extends WatchUi.DataField {
 
 
@@ -39,12 +40,14 @@ class FreeAPSXDataFieldView extends WatchUi.DataField {
             labelView.locX = labelView.locX - 60;
             labelView.locY = labelView.locY - 15;
             var valueView = View.findDrawableById("value");
-            valueView.locY = valueView.locY - 15;
+             valueView.locX = valueView.locX + 5;
+            valueView.locY = valueView.locY - 10;
             var valueViewTime = View.findDrawableById("valueTime");
-            valueViewTime.locX = valueViewTime.locX  + 60 ;
-             valueViewTime.locY = valueViewTime.locY - 15;
-            var valueViewDelta = View.findDrawableById("valueDelta");
-            valueViewDelta.locY = valueViewDelta.locY + 20;
+            valueViewTime.locX = valueViewTime.locX  + 10 ;
+            valueViewTime.locY = valueViewTime.locY + 20; 
+            var valueViewDelta = View.findDrawableById("valueDelta"); 
+            valueViewDelta.locX = valueViewDelta.locX - 40;   
+            valueViewDelta.locY = valueViewDelta.locY + 20;   
 
         }
 
@@ -67,23 +70,26 @@ class FreeAPSXDataFieldView extends WatchUi.DataField {
         var loopColor;
         var loopString;
         var deltaString;
+
         var status = Application.Storage.getValue("status") as Dictionary;
+
         if (status == null) {
             bgString = "---";
-            loopColor = getBackgroundColor();
+            loopColor = getLoopColor(-1);
             loopString = "(xx)";
             deltaString = "??";
         } else {
             var bg = status["glucose"] as String;
-            bgString = (bg == null) ? "--" : bg;
-            var min = getMinutes();
+            bgString = (bg == null) ? "--" : bg as String;
+            var min = getMinutes(status);
             loopColor = getLoopColor(min);
-            loopString = (min < 0 ? "(--)" : " " + min.format("%d")) + "m";
-            deltaString = getDeltaText();
+            loopString = (min < 0 ? "(--)" : "(" + min.format("%d")) + " mn)" as String;
+            deltaString = getDeltaText(status) as String; 
         }
         // Set the background color
+        //View.findDrawableById("Background").setColor(loopColor);
         (View.findDrawableById("Background") as Text).setColor(loopColor);    //getBackgroundColor());
-
+      
         // Set the foreground color and value
         var label = View.findDrawableById("label") as Text;
         var value = View.findDrawableById("value") as Text;
@@ -102,15 +108,16 @@ class FreeAPSXDataFieldView extends WatchUi.DataField {
         }
         label.setText(Rez.Strings.label);
         value.setText(bgString);
-        valueTime.setText(loopString);
         valueDelta.setText(deltaString);
+        valueTime.setText(loopString);
 
         // Call parent's onUpdate(dc) to redraw the layout
         View.onUpdate(dc);
     }
 
-    function getMinutes() as Number {
-        var status = Application.Storage.getValue("status") as Dictionary;
+    function getMinutes(status as Dictionary) as Number {
+        //var status = Application.Storage.getValue("status") as Dictionary;
+        //System.print(Time.now().value());
         if (status == null) {
             return -1;
         }
@@ -120,18 +127,24 @@ class FreeAPSXDataFieldView extends WatchUi.DataField {
             return -1;
         }
 
-        var now = Time.now().value() as Number;
+        if (lastLoopDate instanceof Number) {
+            
 
-        var min = (now - lastLoopDate) / 60;
-
-        return min;
+            var now = Time.now().value() as Number;
+            
+            var min = (now - lastLoopDate) / 60;
+            return min;
+        } else {
+            return -1;
+        }
     }
 
     function getLoopColor(min as Number) as Number {
         if (min < 0) {
-            return Graphics.COLOR_LT_GRAY as Number;
+            return Graphics.COLOR_WHITE as Number;
         } else if (min <= 5) {
-            return Graphics.COLOR_GREEN as Number;
+            return Graphics.COLOR_WHITE as Number;
+            // return Graphics.COLOR_GREEN as Number;
         } else if (min <= 10) {
             return Graphics.COLOR_YELLOW as Number;
         } else {
@@ -139,8 +152,8 @@ class FreeAPSXDataFieldView extends WatchUi.DataField {
         }
     }
 
-    function getDeltaText() as String {
-        var status = Application.Storage.getValue("status") as Dictionary;
+    function getDeltaText(status as Dictionary) as String {
+        // var status = Application.Storage.getValue("status") as Dictionary;
         if (status == null) {
             return "--";
         }
