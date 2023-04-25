@@ -28,16 +28,16 @@ class HeaderDrawable extends WatchUi.Drawable {
 
         var glucoseX = width * 0.6;
         var glucoseY = height * 0.23;
-        
+
         dc.setColor(primaryColor, Graphics.COLOR_TRANSPARENT);
         dc.drawText(glucoseX , glucoseY, Graphics.FONT_LARGE, glucoseText, Graphics.TEXT_JUSTIFY_LEFT);
 
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
 
-        dc.drawText(glucoseX  + glucoseWidth + width * 0.01, 
-            glucoseY + (glucoseHeight - deltaHeight) - deltaHeight * 0.2, 
-            Graphics.FONT_XTINY, 
-            deltaText, 
+        dc.drawText(glucoseX  + glucoseWidth + width * 0.01,
+            glucoseY + (glucoseHeight - deltaHeight) - deltaHeight * 0.2,
+            Graphics.FONT_XTINY,
+            deltaText,
             Graphics.TEXT_JUSTIFY_LEFT);
 
         dc.drawBitmap(glucoseX  + glucoseWidth + width * 0.01, glucoseY + height * 0.025, getDirection());
@@ -50,13 +50,13 @@ class HeaderDrawable extends WatchUi.Drawable {
        // dc.drawCircle(width * 0.55 + glucoseHeight * 0.3, glucoseY + glucoseHeight / 2, glucoseHeight * 0.3);
         dc.drawCircle(width * 0.1 + glucoseHeight * 0.3, glucoseY + glucoseHeight / 2, glucoseHeight * 0.3);
 
-        var loopString = (min < 0 ? "--" : min.format("%d")) + " min";
+        var loopString = (min < 0 ? "--" : min.format("%d")) + " m";
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
-        // dc.drawText(width * 0.85, 
-        dc.drawText(width * 0.4, 
-            glucoseY + (glucoseHeight - deltaHeight) - deltaHeight * 0.2, 
-            Graphics.FONT_XTINY, 
-            loopString, 
+        // dc.drawText(width * 0.85,
+        dc.drawText(width * 0.4,
+            glucoseY + (glucoseHeight - deltaHeight) - deltaHeight * 0.2,
+            Graphics.FONT_XTINY,
+            loopString,
             Graphics.TEXT_JUSTIFY_RIGHT);
     }
 
@@ -137,7 +137,7 @@ class HeaderDrawable extends WatchUi.Drawable {
         }
 
         var now = Time.now().value() as Number;
-        
+
         var min = (now - lastLoopDate) / 60;
 
         return min;
@@ -153,5 +153,5 @@ class HeaderDrawable extends WatchUi.Drawable {
         } else {
             return Graphics.COLOR_RED as Number;
         }
-    } 
+    }
 }
